@@ -1,0 +1,113 @@
+<!-- inicio.component.html -->
+<header class="header">
+  <div class="top-bar">
+    <div class="contact-info">
+      <span class="phone">
+        <i class="fas fa-phone-alt" aria-hidden="true"></i>
+        <a href="tel:+59179062583">(+591) 790 - 62453</a>
+      </span>
+      <span class="email">
+        <i class="fas fa-envelope" aria-hidden="true"></i>
+        <a href="mailto:jbrunoanthony@gmail.com">jbrunoanthonygmail.com</a>
+      </span>
+    </div>
+    <div class="top-links">
+      <a routerLink="/login">PORTAL PACIENTES</a>
+      <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+  </div>
+  <nav class="navbar" role="navigation" aria-label="Main Navigation">
+    <div class="logo">
+      <a routerLink="/">
+        <img src="assets/images/logo.jpg" alt="">
+      </a>
+    </div>
+    <button class="hamburger" aria-label="Toggle navigation" (click)="toggleMenu()" [attr.aria-expanded]="menuActivo">
+      <span class="hamburger-icon"></span>
+    </button>
+    <ul class="nav-links" [class.active]="menuActivo">
+      <li class="dropdown" aria-haspopup="true">
+        <a href="#" aria-expanded="false">Institucional <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+        <ul class="dropdown-menu" aria-label="Institucional Submenu">
+          <li><a routerLink="/mision">Misión</a></li>
+          <li><a routerLink="/vision">Visión</a></li>
+        </ul>
+      </li>
+      <li class="dropdown" aria-haspopup="true">
+        <a href="#" aria-expanded="false">Servicios <i class="fas fa-chevron-down" aria-hidden="true"></i></a>
+        <ul class="dropdown-menu" aria-label="Servicios Submenu">
+          <li><a routerLink="/servicios-generales">Servicios Generales</a></li>
+          <li><a routerLink="/internacion">Internación Hospitalaria</a></li>
+          <li><a routerLink="/quirurgico">Centro Quirúrgico</a></li>
+          <li><a routerLink="/emergencias">Emergencias</a></li>
+          <!-- Agrega más enlaces según sea necesario -->
+        </ul>
+      </li>
+      <li><a routerLink="/instalaciones">Instalaciones</a></li>
+      <li><a routerLink="/emergencias" class="emergency-button">Emergencias 24h</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero-content">
+      <h1 id="hero-heading">Bienvenido a Clínica HUMD</h1>
+      <p>Tu salud es nuestra prioridad</p>
+      <a routerLink="/contacto" class="btn">Agenda una cita</a>
+    </div>
+  </section>
+
+  <section class="services" aria-labelledby="services-heading">
+    <h2 id="services-heading">Nuestros Servicios</h2>
+    <div class="service-cards">
+      <div class="card" *ngFor="let servicio of servicios">
+        <img [src]="servicio.imagen" [alt]="servicio.titulo + ' imagen'" loading="lazy">
+        <h3>{{ servicio.titulo }}</h3>
+        <p>{{ servicio.descripcion }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" aria-labelledby="about-heading">
+    <h2 id="about-heading">Sobre Nosotros</h2>
+    <p>
+      En Clínica HUMD nos dedicamos a proporcionar atención médica de calidad con un enfoque humano y profesional. Nuestro equipo de especialistas está comprometido con tu bienestar.
+    </p>
+    <a routerLink="/nosotros" class="btn">Conoce más</a>
+  </section>
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="footer-content">
+    <div class="contact-info">
+      <h3>Contacto</h3>
+      <p>Dirección: Calle Ejemplo 123, Ciudad, País</p>
+      <p>Teléfono: <a href="tel:+1234567890">+123 456 7890</a></p>
+      <p>Email: <a href="mailto:contactoclinicahumd.com">contactoclinicahumd.com</a></p>
+    </div>
+    <div class="social-media">
+      <h3>Síguenos</h3>
+      <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 Clínica HUMD. Todos los derechos reservados.</p>
+  </div>
+</footer>

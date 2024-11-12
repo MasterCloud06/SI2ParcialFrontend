@@ -1,0 +1,90 @@
+
+<mat-card class="profile-card custom-card" *ngIf="userProfile">
+  <mat-card-header>
+    <div class="profile-header">
+      <h1 class="profile-title">Perfil</h1>
+    </div>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="profile-content">
+      <div class="profile-image">
+        <img [src]="userProfile.imageUrl || 'https://via.placeholder.com/150'" alt="Imagen de Perfil">
+      </div>
+      <div class="profile-details">
+        <h2>{{ userProfile.name }}</h2>
+
+        <!-- Modo de Edición -->
+        <ng-container *ngIf="isEditMode; else displayMode">
+          <p>
+            Dirección:
+            <input
+              matInput
+              [(ngModel)]="userProfile.address"
+              aria-label="Editar Dirección"
+              matTooltip="Editar Dirección"
+            />
+          </p>
+          <p>
+            Número de Teléfono:
+            <input
+              matInput
+              [(ngModel)]="userProfile.phoneNumber"
+              aria-label="Editar Número de Teléfono"
+              matTooltip="Editar Número de Teléfono"
+            />
+          </p>
+          <!-- Agrega otros campos editables aquí según tu modelo -->
+        </ng-container>
+
+        <!-- Modo de Visualización -->
+        <ng-template #displayMode>
+          <p>Dirección: {{ userProfile.address }}</p>
+          <p>Número de Teléfono: {{ userProfile.phoneNumber }}</p>
+          <p>ID Único: {{ userProfile.uniqueId }}</p>
+          <p>Estado: {{ userProfile.status }}</p>
+          <p>Cursos Inscritos: {{ userProfile.coursesEnroll }}</p>
+          <!-- Agrega otros campos no editables aquí según tu modelo -->
+        </ng-template>
+
+        <!-- Botón de Editar/Cerrar Modo de Edición -->
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="toggleEditMode()"
+          *ngIf="canEditProfile()"
+          matTooltip="{{ isEditMode ? 'Cancelar Edición' : 'Editar Perfil' }}"
+        >
+          {{ isEditMode ? 'Cancelar' : 'Editar' }}
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+
+  <!-- Acciones del Card -->
+  <mat-card-actions *ngIf="isEditMode && canEditProfile()">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="saveChanges()"
+      matTooltip="Guardar Cambios"
+    >
+      Guardar
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="cancelEdit()"
+      matTooltip="Cancelar Cambios"
+    >
+      Cancelar
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- Mensaje si no hay perfil o el usuario no está logueado -->
+<div *ngIf="!userProfile && isLoggedIn" class="no-profile">
+  <p>Cargando perfil...</p>
+</div>
+<div *ngIf="!isLoggedIn" class="not-logged-in">
+  <p>No estás logueado. Por favor, inicia sesión para ver tu perfil.</p>
+</div>

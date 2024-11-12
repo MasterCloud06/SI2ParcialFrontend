@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>Editar Especialidad</h2>
+  <form *ngIf="especialidadForm" [formGroup]="especialidadForm" (ngSubmit)="onSubmit()">
+    <!-- Nombre Field -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" required />
+      <mat-error *ngIf="especialidadForm.get('nombre')?.hasError('required')">
+        El nombre es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Descripción Field -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="descripcion" required></textarea>
+      <mat-error *ngIf="especialidadForm.get('descripcion')?.hasError('required')">
+        La descripción es obligatoria
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Buttons -->
+    <div class="buttons">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!especialidadForm.valid">
+        Guardar Cambios
+      </button>
+      <button mat-raised-button color="warn" type="button" (click)="cancel()">Cancelar</button>
+    </div>
+  </form>
+</div>

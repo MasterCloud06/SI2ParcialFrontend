@@ -1,0 +1,74 @@
+/* Define a mixin for common styles */
+@mixin menu-item {
+  color: #d4d4d4;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.3s;
+
+  .menu-icon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+
+  .menu-text {
+    font-weight: bold;
+  }
+}
+
+.sidebar {
+  background-color: #322653;
+  width: 200px; // Ancho visible del sidebar
+  padding: 20px;
+  height: 100%; // Tomar toda la altura del contenedor
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  &.hideSidebar {
+    width: 0;
+    padding: 20px 0; // Opcional: reducir el padding al mínimo
+  }
+
+  &.showSidebar {
+    width: 200px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1; // Para que la lista tome el espacio disponible
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  a {
+    @include menu-item;
+
+    &:hover {
+      background-color: rgb(241, 241, 241);
+      color: #6c6c6c;
+    }
+
+    &.active {
+      color: #000000;
+      background-color: rgb(241, 241, 241);
+    }
+
+    &.active:hover {
+      color: #ffffff;
+      box-shadow: 4px 4px 6px #b9b9b9, -4px -4px 6px #ffffff;
+      background-color: #d5d5d5;
+    }
+  }
+
+  .sub-menu {
+    padding-left: 20px; /* Ajusta el padding según tu necesidad */
+  }
+}

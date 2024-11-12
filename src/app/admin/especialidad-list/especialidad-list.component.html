@@ -1,0 +1,42 @@
+<div class="container">
+  <h2>Gestión de Especialidades</h2>
+  <button mat-raised-button color="primary" (click)="createEspecialidad()">
+    Crear Nueva Especialidad
+  </button>
+
+  <table mat-table [dataSource]="especialidades" class="mat-elevation-z8" style="width: 100%; margin-top: 20px;">
+    <!-- ID Column -->
+    <ng-container matColumnDef="idEspecialidad">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let especialidad"> {{ especialidad.idEspecialidad }} </td>
+    </ng-container>
+
+    <!-- Nombre Column -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let especialidad"> {{ especialidad.nombre }} </td>
+    </ng-container>
+
+    <!-- Descripción Column -->
+    <ng-container matColumnDef="descripcion">
+      <th mat-header-cell *matHeaderCellDef> Descripción </th>
+      <td mat-cell *matCellDef="let especialidad"> {{ especialidad.descripcion }} </td>
+    </ng-container>
+
+    <!-- Acciones Column -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let especialidad">
+        <button mat-icon-button color="accent" (click)="editEspecialidad(especialidad.idEspecialidad)" matTooltip="Editar Especialidad">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteEspecialidad(especialidad.idEspecialidad)" matTooltip="Eliminar Especialidad">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

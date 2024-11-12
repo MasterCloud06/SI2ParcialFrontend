@@ -1,0 +1,49 @@
+<div class="container">
+  <h2>Crear Nuevo Usuario</h2>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Nombre de Usuario</mat-label>
+      <input matInput formControlName="username" required>
+      <mat-error *ngIf="userForm.get('username')?.hasError('required')">
+        El nombre de usuario es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" required>
+      <mat-error *ngIf="userForm.get('email')?.hasError('required')">
+        El email es obligatorio
+      </mat-error>
+      <mat-error *ngIf="userForm.get('email')?.hasError('email')">
+        Formato de email inválido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="password" required>
+      <mat-error *ngIf="userForm.get('password')?.hasError('required')">
+        La contraseña es obligatoria
+      </mat-error>
+      <mat-error *ngIf="userForm.get('password')?.hasError('minlength')">
+        La contraseña debe tener al menos 6 caracteres
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Roles</mat-label>
+      <mat-select formControlName="roles" multiple>
+        <mat-option *ngFor="let role of availableRoles" [value]="role">{{ role }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="userForm.get('roles')?.hasError('required')">
+        Debes seleccionar al menos un rol
+      </mat-error>
+    </mat-form-field>
+
+    <div class="buttons">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">Crear Usuario</button>
+      <button mat-raised-button color="warn" type="button" (click)="cancel()">Cancelar</button>
+    </div>
+  </form>
+</div>

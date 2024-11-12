@@ -1,0 +1,45 @@
+<div class="login-container">
+  <div class="login-form-card">
+    <div class="login-header">
+      <img src="assets/images/logo.jpg" alt="Treebole Clínicas Logo" class="logo">
+      <h2>Acceso Pacientes</h2>
+    </div>
+
+    <!-- Mostrar formulario de inicio de sesión si el usuario no está autenticado -->
+    <form *ngIf="!(loginService.userLoginOn | async)" [formGroup]="loginForm">
+      <p class="text-danger">{{loginError}}</p>
+
+      <div class="form-group">
+        <label for="username" class="form-label">Usuario</label>
+        <div class="input-icon">
+          <i class="fas fa-user"></i>
+          <input formControlName="username" type="text" class="form-control" id="username" placeholder="Ingrese su usuario">
+        </div>
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger">
+          <div *ngIf="username.errors?.['required']">El Usuario es requerido.</div>
+          <div *ngIf="username.errors?.['username']">El Usuario debe tener un formato válido.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Contraseña</label>
+        <div class="input-icon">
+          <i class="fas fa-lock"></i>
+          <input formControlName="password" type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
+        </div>
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+          <div *ngIf="password.errors?.['required']">La Contraseña es requerida.</div>
+        </div>
+      </div>
+
+      <div class="remember-me">
+        <input type="checkbox" id="rememberMe">
+        <label for="rememberMe">Recordar usuario</label>
+      </div>
+
+      <a href="#" class="forgot-password">¿Ha olvidado su contraseña?</a>
+
+      <button type="submit" (click)="login()" class="btn btn-primary btn-block">Iniciar Sesión</button>
+    </form>
+  </div>
+</div>

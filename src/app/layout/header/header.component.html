@@ -1,0 +1,123 @@
+<mat-toolbar *ngIf="isLoggedIn" class="custom-toolbar">
+  <!-- Botón para alternar la barra lateral -->
+  <button
+    mat-icon-button
+    class="neumorphic-button"
+    aria-label="Toggle Sidebar"
+    (click)="toggleSidebar()"
+    matTooltip="Alternar Barra Lateral"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="toolbar-title">LMS</span>
+  <span class="example-spacer"></span>
+
+  <!-- Agrupar botones según roles del usuario -->
+  <ng-container *ngIf="userRoles.length > 0">
+    <!-- Botón para Administradores -->
+    <button
+      *ngIf="hasRole('ROLE_ADMIN')"
+      mat-button
+      routerLink="/admin"
+      routerLinkActive="active"
+      class="neumorphic-button"
+      matTooltip="Panel de Administrador"
+    >
+      Admin Panel
+    </button>
+
+    <button
+    *ngIf="hasRole('ROLE_ADMIN')"
+    mat-button
+    routerLink="/admin/users"
+    routerLinkActive="active"
+    class="neumorphic-button"
+    matTooltip="Gestión de Usuarios"
+  >
+    Gestionar Usuarios
+  </button>
+
+  <!-- Botón para gestionar especialidades -->
+<button
+*ngIf="hasRole('ROLE_ADMIN')"
+mat-button
+routerLink="/admin/especialidades"
+routerLinkActive="active"
+class="neumorphic-button"
+matTooltip="Gestión de Especialidades"
+>
+Gestionar Especialidades
+</button>
+
+
+
+
+    <!-- Botón para Usuarios -->
+    <button
+      *ngIf="hasRole('ROLE_USER')"
+      mat-button
+      routerLink="/user"
+      routerLinkActive="active"
+      class="neumorphic-button"
+      matTooltip="Dashboard de Usuario"
+    >
+      User Dashboard
+    </button>
+
+    <!-- Botón para Médicos -->
+    <button
+      *ngIf="hasRole('ROLE_MEDICO')"
+      mat-button
+      routerLink="/medico"
+      routerLinkActive="active"
+      class="neumorphic-button"
+      matTooltip="Panel de Médico"
+    >
+      Medico Panel
+    </button>
+
+    <!-- Botón para Pacientes -->
+    <button
+      *ngIf="hasRole('ROLE_PACIENTE')"
+      mat-button
+      routerLink="/paciente"
+      routerLinkActive="active"
+      class="neumorphic-button"
+      matTooltip="Panel de Paciente"
+    >
+      Paciente Panel
+    </button>
+  </ng-container>
+
+  <!-- Botón de Notificaciones -->
+  <button
+    mat-icon-button
+    class="notification-icon"
+    aria-label="Notification"
+    matTooltip="Ver Notificaciones"
+  >
+    <mat-icon>notifications</mat-icon>
+  </button>
+
+  <!-- Botón de Perfil -->
+  <button
+    mat-button
+    routerLink="/profile"
+    routerLinkActive="active"
+    class="neumorphic-button"
+    matTooltip="Ver Perfil"
+  >
+    Profile
+  </button>
+
+  <!-- Botón de Cerrar Sesión -->
+  <button
+    mat-button
+    (click)="logout()"
+    class="neumorphic-button"
+    matTooltip="Cerrar Sesión"
+  >
+    Cerrar sesión
+  </button>
+</mat-toolbar>
