@@ -5,6 +5,7 @@ import { UserProfile } from 'src/app/models/user-profile.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -15,19 +16,29 @@ export class ProfileComponent implements OnInit, OnDestroy {
   userProfile: UserProfile | null = null;
   isEditMode: boolean = false;
   isLoggedIn: boolean = false;
-  userRoles: string[] = [];
+  userRoles: string[] = []; // Guarda el nombre del rol del usuario actual
 
   private unsubscribe$ = new Subject<void>();
 
   constructor(
     private profileService: ProfileService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = !!localStorage.getItem('token'); // Verificar si el usuario está logueado por la presencia del token
-    if (this.isLoggedIn) {
-      this.fetchUserProfile();
+    this.isLoggedIn = !!localStorage.getItem('authToken');
+    const storedProfile = localStorage.getItem('userProfile');
+
+    if (this.isLoggedIn && storedProfile) {
+      const userId = Number(JSON.parse(storedProfile).id);
+      if (userId) {
+        this.fetchUserProfile(userId);
+      } else {
+        console.error("No se encontró el userId en el perfil almacenado.");
+      }
+    } else {
+      console.error("No hay token o perfil de usuario almacenado.");
     }
   }
 
@@ -38,13 +49,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   /**
    * Obtiene el perfil del usuario desde el backend.
+   * @param userId ID del usuario a obtener el perfil
    */
-  private fetchUserProfile(): void {
-    this.profileService.getUserProfile()
+  private fetchUserProfile(userId: number): void {
+    this.profileService.getUserProfile(userId)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (profile) => {
-          this.userProfile = profile;
+          this.userProfile
+          = profile;
+          console.log("Perfil cargado:", this.userProfile);
+
+          // Extraer el nombre del primer rol y asignarlo a `userRoles`
+          if (this.userProfile.roles && this.userProfile.roles.length > 0) {
+            this.userRoles = [this.userProfile.roles[0].name]; // Solo toma el primer rol
+          }
+
+          // Forzar la detección de cambios para actualizar la vista
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Error al cargar el perfil:', err);
@@ -69,7 +91,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
    */
   saveChanges(): void {
     if (this.canEditProfile() && this.userProfile) {
-      this.profileService.updateUserProfile(this.userProfile)
+      const userId = Number(this.userProfile.id);
+      this.profileService.updateUserProfile(userId, this.userProfile)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe({
           next: (updatedProfile) => {
@@ -93,7 +116,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   cancelEdit(): void {
     this.isEditMode = false;
     if (this.isLoggedIn) {
-      this.fetchUserProfile(); // Recargar los datos para descartar los cambios no guardados
+      const storedProfile = localStorage.getItem('userProfile');
+      if (storedProfile) {
+        const userId = Number(JSON.parse(storedProfile).id);
+        this.fetchUserProfile(userId);
+      }
     }
   }
 

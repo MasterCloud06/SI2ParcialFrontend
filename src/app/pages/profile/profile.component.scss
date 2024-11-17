@@ -1,100 +1,100 @@
 
 
-.profile-card {
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 20px;
-  border-radius: 15px;
-  background-color: #ffffff; // Fondo blanco para mejor contraste
-}
-
-.custom-card {
-  border: none; // Eliminamos el borde predeterminado de mat-card
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Sombra más pronunciada
-}
-
-.profile-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.profile-title {
-  font-size: 28px;
-  color: #322653;
-}
-
-.profile-content {
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap; // Para responsividad
-}
-
-.profile-image {
-  flex: 1 1 150px;
-  text-align: center;
-  margin-bottom: 20px;
-
-  img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #322653; // Añadir borde para resaltar la imagen
+  .profile-card {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #ffffff; // Fondo blanco para mejor contraste
   }
-}
 
-.profile-details {
-  flex: 3 1 400px;
-  padding-left: 20px;
+  .custom-card {
+    border: none; // Eliminamos el borde predeterminado de mat-card
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); // Sombra más pronunciada
+  }
 
-  h2 {
-    font-size: 22px;
+  .profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .profile-title {
+    font-size: 28px;
     color: #322653;
-    margin-bottom: 15px;
   }
 
-  p {
-    font-size: 16px;
-    margin: 8px 0;
-    color: #555555;
+  .profile-content {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap; // Para responsividad
+  }
 
-    input {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
-      margin-top: 5px;
+  .profile-image {
+    flex: 1 1 150px;
+    text-align: center;
+    margin-bottom: 20px;
+
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #322653; // Añadir borde para resaltar la imagen
     }
   }
 
-  button {
-    margin-top: 15px;
-  }
-}
-
-.mat-card-actions {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.no-profile, .not-logged-in {
-  text-align: center;
-  margin-top: 50px;
-  font-size: 18px;
-  color: #555555;
-}
-
-@media (max-width: 768px) {
-  .profile-content {
-    flex-direction: column;
-    align-items: center;
-  }
-
   .profile-details {
-    padding-left: 0;
-    text-align: center;
+    flex: 3 1 400px;
+    padding-left: 20px;
+
+    h2 {
+      font-size: 22px;
+      color: #322653;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 8px 0;
+      color: #555555;
+
+      input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-top: 5px;
+      }
+    }
+
+    button {
+      margin-top: 15px;
+    }
   }
-}
+
+  .mat-card-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .no-profile, .not-logged-in {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 18px;
+    color: #555555;
+  }
+
+  @media (max-width: 768px) {
+    .profile-content {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .profile-details {
+      padding-left: 0;
+      text-align: center;
+    }
+  }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.prod'; // Nota: Asegúrate de que esta ruta sea correcta
 
 export interface Especialidad {
   idEspecialidad: number;
@@ -12,7 +13,7 @@ export interface Especialidad {
   providedIn: 'root',
 })
 export class EspecialidadService {
-  private baseUrl = 'http://localhost:8080/api/especialidades'; // Asegúrate de que esta URL coincide con tu backend
+  private baseUrl = `${environment.apiUrl}/especialidades`;
 
   constructor(private http: HttpClient) {}
 

@@ -17,7 +17,7 @@
   <ng-container *ngIf="userRoles.length > 0">
     <!-- Botón para Administradores -->
     <button
-      *ngIf="hasRole('ROLE_ADMIN')"
+      *ngIf="hasRole('ADMIN')"
       mat-button
       routerLink="/admin"
       routerLinkActive="active"
@@ -28,7 +28,7 @@
     </button>
 
     <button
-    *ngIf="hasRole('ROLE_ADMIN')"
+    *ngIf="hasRole('ADMIN')"
     mat-button
     routerLink="/admin/users"
     routerLinkActive="active"
@@ -40,7 +40,7 @@
 
   <!-- Botón para gestionar especialidades -->
 <button
-*ngIf="hasRole('ROLE_ADMIN')"
+*ngIf="hasRole('ADMIN')"
 mat-button
 routerLink="/admin/especialidades"
 routerLinkActive="active"
@@ -55,7 +55,7 @@ Gestionar Especialidades
 
     <!-- Botón para Usuarios -->
     <button
-      *ngIf="hasRole('ROLE_USER')"
+      *ngIf="hasRole('USER')"
       mat-button
       routerLink="/user"
       routerLinkActive="active"
@@ -67,7 +67,7 @@ Gestionar Especialidades
 
     <!-- Botón para Médicos -->
     <button
-      *ngIf="hasRole('ROLE_MEDICO')"
+      *ngIf="hasRole('MEDICO')"
       mat-button
       routerLink="/medico"
       routerLinkActive="active"
@@ -79,7 +79,7 @@ Gestionar Especialidades
 
     <!-- Botón para Pacientes -->
     <button
-      *ngIf="hasRole('ROLE_PACIENTE')"
+      *ngIf="hasRole('PACIENTE')"
       mat-button
       routerLink="/paciente"
       routerLinkActive="active"

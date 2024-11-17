@@ -11,7 +11,7 @@
         <img [src]="userProfile.imageUrl || 'https://via.placeholder.com/150'" alt="Imagen de Perfil">
       </div>
       <div class="profile-details">
-        <h2>{{ userProfile.name }}</h2>
+        <h2>{{ userProfile.username }}</h2>
 
         <!-- Modo de Edición -->
         <ng-container *ngIf="isEditMode; else displayMode">

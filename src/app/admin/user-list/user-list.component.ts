@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../../services/user/user.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Opcional para notificaciones
+import { BitacoraService } from '../../services/bitacora/bitacora.service'; // Importa el servicio de bitácora
 
 @Component({
   selector: 'app-user-list',
@@ -15,8 +16,9 @@ export class UserListComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private snackBar: MatSnackBar // Opcional
-  ) { }
+    private snackBar: MatSnackBar, // Opcional
+    private bitacoraService: BitacoraService
+  ) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -25,7 +27,10 @@ export class UserListComponent implements OnInit {
   loadUsers(): void {
     this.userService.getAllUsers().subscribe(
       (data) => {
-        this.users = data;
+        this.users = data.map(user => ({
+          ...user,
+          rolesString: user.roles.map(role => role.name).join(', ') // Extrae el nombre de cada rol
+        }));
       },
       (error) => {
         console.error('Error al obtener usuarios', error);
@@ -39,11 +44,17 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(id: number): void {
-    if (confirm('¿Estás seguro de eliminar este usuario?')) {
+    const userToDelete = this.users.find(user => user.id === id); // Encuentra el usuario a eliminar
+
+    if (userToDelete && confirm(`¿Estás seguro de eliminar al usuario ${userToDelete.username}?`)) {
       this.userService.deleteUser(id).subscribe(
         () => {
           this.snackBar.open('Usuario eliminado correctamente', 'Cerrar', { duration: 3000 });
-          this.loadUsers();
+
+          // Registra la acción en la bitácora después de la eliminación exitosa
+          this.bitacoraService.registrarAccion(`Usuario eliminado: ${userToDelete.username}`);
+
+          this.loadUsers(); // Recarga la lista de usuarios después de la eliminación
         },
         (error) => {
           console.error('Error al eliminar usuario', error);

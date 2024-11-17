@@ -1,0 +1,13 @@
+<div class="resultados">
+  <h2>Resultados de Laboratorio</h2>
+  <ul *ngIf="resultados.length > 0; else noResultados">
+    <li *ngFor="let resultado of resultados">
+      <p>Fecha: {{ resultado.fecha }}</p>
+      <p>Tipo de examen: {{ resultado.tipo }}</p>
+      <p>Resultado: {{ resultado.resultado }}</p>
+    </li>
+  </ul>
+  <ng-template #noResultados>
+    <p>No hay resultados de laboratorio disponibles.</p>
+  </ng-template>
+</div>

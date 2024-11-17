@@ -3,7 +3,7 @@ import { UserService } from '../../services/user/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Opcional
-
+import { BitacoraService } from '../../services/bitacora/bitacora.service'; // Importa el servicio de bitácora
 
 @Component({
   selector: 'app-user-create',
@@ -12,13 +12,14 @@ import { MatSnackBar } from '@angular/material/snack-bar'; // Opcional
 })
 export class UserCreateComponent implements OnInit {
   userForm!: FormGroup;
-  availableRoles: string[] = ['ROLE_ADMIN', 'ROLE_USUARIO', 'ROLE_MEDICO', 'ROLE_PACIENTE'];
+  availableRoles: string[] = ['ADMIN', 'USUARIO', 'MEDICO', 'PACIENTE'];
 
   constructor(
     private userService: UserService,
     private fb: FormBuilder,
     private router: Router,
-    private snackBar: MatSnackBar // Opcional
+    private snackBar: MatSnackBar, // Opcional
+    private bitacoraService: BitacoraService
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +41,10 @@ export class UserCreateComponent implements OnInit {
       this.userService.registerUser(newUser).subscribe(
         () => {
           this.snackBar.open('Usuario creado correctamente', 'Cerrar', { duration: 3000 });
+
+          // Registra la acción en la bitácora después de la creación exitosa
+          this.bitacoraService.registrarAccion(`Usuario creado: ${newUser.username}`);
+
           this.router.navigate(['/admin/users']);
         },
         (error) => {

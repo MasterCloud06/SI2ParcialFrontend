@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, User } from '../../services/user/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Opcional
+import { BitacoraService } from '../../services/bitacora/bitacora.service'; // Importa el servicio de bitácora
+
 
 @Component({
   selector: 'app-user-edit',
@@ -13,14 +15,15 @@ export class UserEditComponent implements OnInit {
   userForm!: FormGroup;
   userId!: number;
   user!: User;
-  availableRoles: string[] = ['ROLE_ADMIN', 'ROLE_USUARIO', 'ROLE_MEDICO', 'ROLE_PACIENTE'];
+  availableRoles: string[] = ['ADMIN', 'USUARIO', 'MEDICO', 'PACIENTE'];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar // Opcional
+    private snackBar: MatSnackBar, // Opcional
+    private bitacoraService: BitacoraService
   ) { }
 
   ngOnInit(): void {
@@ -57,6 +60,8 @@ export class UserEditComponent implements OnInit {
       this.userService.updateUser(this.userId, updatedUser).subscribe(
         () => {
           this.snackBar.open('Usuario actualizado correctamente', 'Cerrar', { duration: 3000 });
+          this.bitacoraService.registrarAccion(`Usuario creado: ${updatedUser.username}`);
+
           this.router.navigate(['/admin/users']);
         },
         (error) => {

@@ -18,6 +18,14 @@ import { EspecialidadCreateComponent } from './admin/especialidad-create/especia
 import { EspecialidadEditComponent } from './admin/especialidad-edit/especialidad-edit.component';
 
 
+import { ConsultaExternaComponent } from './paciente/consulta-externa/consulta-externa.component';
+import { PacienteResultadosComponent } from './paciente/resultados/resultados.component';
+
+import { MedicosDisponiblesComponent } from './paciente/medicos-disponibles/medicos-disponibles.component';
+
+import { BitacoraComponent } from './admin/bitacora/bitacora.component';
+
+
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent },
   { path: 'login', component: LoginComponent },
@@ -30,19 +38,19 @@ const routes: Routes = [
     path: 'admin/users',
     component: UserListComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['ROLE_ADMIN'] }
+    data: { roles: ['ADMIN'] }
   },
   {
     path: 'admin/users/create',
     component: UserCreateComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['ROLE_ADMIN'] }
+    data: { roles: ['ADMIN'] }
   },
   {
     path: 'admin/users/edit/:id',
     component: UserEditComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['ROLE_ADMIN'] }
+    data: { roles: ['ADMIN'] }
 
 
   },
@@ -51,19 +59,45 @@ const routes: Routes = [
     path: 'admin/especialidades',
     component: EspecialidadListComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['ROLE_ADMIN'] },
+    data: { roles: ['ADMIN'] },
   },
   {
     path: 'admin/especialidades/create',
     component: EspecialidadCreateComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['ROLE_ADMIN'] },
+    data: { roles: ['ADMIN'] },
   },
   {
     path: 'admin/especialidades/edit/:idEspecialidad',
     component: EspecialidadEditComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['ROLE_ADMIN'] },
+    data: { roles: ['ADMIN'] },
+  },
+  {
+    path: 'admin/bitacora',
+    component: BitacoraComponent, // Asegúrate de importar BitacoraComponent arriba
+    canActivate: [AuthGuard],
+    data: { roles: ['ADMIN'] },
+  },
+
+
+  {
+    path: 'paciente/consultas',
+    component: ConsultaExternaComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['PACIENTE'] },
+  },
+  {
+    path: 'paciente/resultados',
+    component: PacienteResultadosComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['PACIENTE'] },
+  },
+  {
+    path: 'paciente/medicos-disponibles/:especialidadId',
+    component: MedicosDisponiblesComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['PACIENTE'] },
   },
 
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },

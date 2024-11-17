@@ -1,6 +1,9 @@
 // src/app/app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; // Asegúrate de tener HTTP_INTERCEPTORS importado aquí
+
+
 
 // Angular Material Modules
 import { MatButtonModule } from '@angular/material/button';
@@ -19,9 +22,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'; // Importa MatS
 import { MatSelectModule } from '@angular/material/select';
 
 
+
 // Formularios y HTTP
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+
 
 // Routing y Componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +48,11 @@ import { EspecialidadListComponent } from './admin/especialidad-list/especialida
 import { EspecialidadCreateComponent } from './admin/especialidad-create/especialidad-create.component';
 import { EspecialidadEditComponent } from './admin/especialidad-edit/especialidad-edit.component'; // Asegúrate de que está importado
 
+import { ConsultaExternaComponent } from './paciente/consulta-externa/consulta-externa.component';
+
+import { AuthInterceptor } from './interceptors/auth-interceptor.service';
+import { BitacoraComponent } from './admin/bitacora/bitacora.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +72,10 @@ import { EspecialidadEditComponent } from './admin/especialidad-edit/especialida
     EspecialidadListComponent,
     EspecialidadCreateComponent,
     EspecialidadEditComponent,
+    ConsultaExternaComponent,
+    BitacoraComponent,
+
+
   ],
   imports: [
     BrowserModule,
@@ -87,7 +100,9 @@ import { EspecialidadEditComponent } from './admin/especialidad-edit/especialida
     HttpClientModule,
     MatSelectModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

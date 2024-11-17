@@ -5,17 +5,16 @@ import { LoginRequest } from './loginRequest';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { UserProfile } from 'src/app/models/user-profile.model'; // Asegúrate de tener esta ruta correcta
+import { UserProfile } from 'src/app/models/user-profile.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  private apiUrl = 'http://localhost:8080/api/auth/login';
-  private profileApiUrl = 'http://localhost:8080/api/users/{id}/profile'; // Endpoint para obtener el perfil
+  private apiUrl = `${environment.apiUrl}/auth/login`;
 
   private currentUserToken: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
   private currentUserRoles: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
@@ -61,6 +60,7 @@ export class LoginService {
       tap((response) => {
         const token = response.token;
         const roles = response.roles;
+        const userId = response.userId; // Obtener el userId del backend
 
         if (token && roles) {
           // Guardar en localStorage
@@ -72,8 +72,8 @@ export class LoginService {
           this.currentUserRoles.next(roles);
           this.currentUserLoginOn.next(true);
 
-          // Obtener el perfil del usuario
-          this.fetchUserProfile(token);
+          // Obtener el perfil del usuario usando el userId
+          this.fetchUserProfile(userId);
         }
       }),
       catchError(this.handleError)
@@ -82,14 +82,19 @@ export class LoginService {
 
   /**
    * Obtiene el perfil del usuario autenticado
-   * @param token Token de autenticación
+   * @param userId ID del usuario
    */
-  private fetchUserProfile(token: string): void {
+  private fetchUserProfile(userId: number): void {
+    const token = this.getToken();
+    if (!token) return;
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.get<UserProfile>(this.profileApiUrl, { headers }).pipe(
+    const profileApiUrl = `${environment.apiUrl}/users/${userId}/profile`;
+
+    this.http.get<UserProfile>(profileApiUrl, { headers }).pipe(
       tap((profile) => {
         if (profile) {
           localStorage.setItem('userProfile', JSON.stringify(profile));

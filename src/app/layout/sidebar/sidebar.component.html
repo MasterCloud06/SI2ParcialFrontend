@@ -49,7 +49,7 @@
     <!-- Agrupar elementos según roles del usuario -->
     <ng-container *ngIf="userRoles.length > 0">
       <!-- Elementos específicos para Administradores -->
-      <li *ngIf="hasRole('ROLE_ADMIN')">
+      <li *ngIf="hasRole('ADMIN')">
         <a
           routerLink="/admin"
           routerLinkActive="active"
@@ -61,8 +61,20 @@
         </a>
       </li>
 
+      <li *ngIf="hasRole('ADMIN')">
+        <a
+          routerLink="/admin/bitacora"
+          routerLinkActive="active"
+          aria-label="Bitácora"
+          matTooltip="Bitácora de Actividades"
+        >
+          <span class="menu-icon material-icons">history</span>
+          <span class="menu-text">Bitácora</span>
+        </a>
+      </li>
+
       <!-- Elementos específicos para Usuarios -->
-      <li *ngIf="hasRole('ROLE_USER')">
+      <li *ngIf="hasRole('USER')">
         <a
           routerLink="/teacher"
           routerLinkActive="active"
@@ -75,7 +87,7 @@
       </li>
 
       <!-- Elementos específicos para Pacientes -->
-      <li *ngIf="hasRole('ROLE_PACIENTE')">
+      <li *ngIf="hasRole('PACIENTE')">
         <a
           routerLink="/paciente"
           routerLinkActive="active"
@@ -86,9 +98,31 @@
           <span class="menu-text">Paciente Panel</span>
         </a>
       </li>
+      <li *ngIf="hasRole('PACIENTE')">
+        <a
+          routerLink="/paciente/consultas"
+          routerLinkActive="active"
+          aria-label="Fichas Consulta Externa"
+          matTooltip="Fichas Consulta Externa"
+        >
+          <span class="menu-icon material-icons">assignment</span>
+          <span class="menu-text">Fichas Consulta Externa</span>
+        </a>
+      </li>
+      <li *ngIf="hasRole('PACIENTE')">
+        <a
+          routerLink="/paciente/resultados"
+          routerLinkActive="active"
+          aria-label="Resultados de Laboratorio"
+          matTooltip="Resultados de Laboratorio"
+        >
+          <span class="menu-icon material-icons">science</span>
+          <span class="menu-text">Resultados de Laboratorio</span>
+        </a>
+      </li>
 
       <!-- Elementos específicos para Médicos -->
-      <li *ngIf="hasRole('ROLE_MEDICO')">
+      <li *ngIf="hasRole('MEDICO')">
         <a
           routerLink="/medico"
           routerLinkActive="active"

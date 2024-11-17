@@ -3,6 +3,7 @@ import { EspecialidadService, Especialidad } from '../../services/especialidades
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BitacoraService } from '../../services/bitacora/bitacora.service'; // Importa el servicio de bitácora
 
 @Component({
   selector: 'app-especialidad-create',
@@ -16,7 +17,8 @@ export class EspecialidadCreateComponent implements OnInit {
     private especialidadService: EspecialidadService,
     private fb: FormBuilder,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private bitacoraService: BitacoraService // Inyecta el servicio de bitácora
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +38,10 @@ export class EspecialidadCreateComponent implements OnInit {
       this.especialidadService.createEspecialidad(newEspecialidad).subscribe(
         () => {
           this.snackBar.open('Especialidad creada correctamente', 'Cerrar', { duration: 3000 });
+
+          // Registra la acción en la bitácora después de la creación exitosa
+          this.bitacoraService.registrarAccion(`Se creó una nueva especialidad: ${newEspecialidad.nombre}`);
+
           this.router.navigate(['/admin/especialidades']);
         },
         (error) => {

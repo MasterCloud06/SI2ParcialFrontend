@@ -4,45 +4,46 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { UserProfile } from '../../models/user-profile.model';
+import { environment } from '../../../environments/environment.prod'; // Asegúrate de que la ruta sea correcta
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  private apiUrl = 'http://localhost:8080/api/users/{id}/profile'; // URL para acceder al perfil del backend
-
   constructor(private http: HttpClient) {}
 
   // Obtener el perfil del usuario
-  getUserProfile(): Observable<UserProfile> {
-    const token = localStorage.getItem('token'); // Obtener el token del almacenamiento
+  getUserProfile(userId: number): Observable<UserProfile> {
+    const token = localStorage.getItem('authToken');
     if (!token) {
-      return throwError('No se encontró el token');
+      return throwError(() => new Error('No se encontró el token'));
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const apiUrl = `${environment.apiUrl}/users/${userId}/profile`;
 
-    return this.http.get<UserProfile>(this.apiUrl, { headers }).pipe(
+    return this.http.get<UserProfile>(apiUrl, { headers }).pipe(
       catchError((error) => {
         console.error('Error al obtener el perfil del usuario:', error);
-        return throwError(error);
+        return throwError(() => error);
       })
     );
   }
 
   // Actualizar el perfil del usuario
-  updateUserProfile(profile: UserProfile): Observable<UserProfile> {
-    const token = localStorage.getItem('token');
+  updateUserProfile(userId: number, profile: UserProfile): Observable<UserProfile> {
+    const token = localStorage.getItem('authToken');
     if (!token) {
-      return throwError('No se encontró el token');
+      return throwError(() => new Error('No se encontró el token'));
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const apiUrl = `${environment.apiUrl}/users/${userId}/profile`;
 
-    return this.http.put<UserProfile>(this.apiUrl, profile, { headers }).pipe(
+    return this.http.put<UserProfile>(apiUrl, profile, { headers }).pipe(
       catchError((error) => {
         console.error('Error al actualizar el perfil del usuario:', error);
-        return throwError(error);
+        return throwError(() => error);
       })
     );
   }

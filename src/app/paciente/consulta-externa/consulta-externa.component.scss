@@ -1,0 +1,58 @@
+.consulta-externa {
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #666666; // Color de título en gris claro
+    text-align: center;
+  }
+
+  .especialidades-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+
+    thead {
+      background-color: #f8f8f8;
+      color: #333333;
+      font-weight: bold;
+
+      th {
+        padding: 0.8rem;
+        text-align: left;
+      }
+    }
+
+    tbody {
+      tr {
+        background-color: #f2f2f2;
+        border-bottom: 1px solid #ddd;
+
+        &:hover {
+          background-color: #e0e0e0;
+        }
+
+        td {
+          padding: 1rem;
+          color: #333333;
+          font-size: 1rem;
+        }
+
+        .button-cell {
+          text-align: right;
+        }
+      }
+    }
+
+    .seleccionar-button {
+      background-color: #007bff;
+      color: white;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+  }
+}

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EspecialidadService, Especialidad } from '../../services/especialidades/especialidad.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BitacoraService } from '../../services/bitacora/bitacora.service'; // Importa el servicio de bitácora
+
 
 @Component({
   selector: 'app-especialidad-list',
@@ -15,7 +17,8 @@ export class EspecialidadListComponent implements OnInit {
   constructor(
     private especialidadService: EspecialidadService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private bitacoraService: BitacoraService
   ) {}
 
   ngOnInit(): void {
@@ -48,6 +51,8 @@ export class EspecialidadListComponent implements OnInit {
       this.especialidadService.deleteEspecialidad(idEspecialidad).subscribe(
         () => {
           this.snackBar.open('Especialidad eliminada correctamente', 'Cerrar', { duration: 3000 });
+          this.bitacoraService.registrarAccion(`Especialidad eliminada con ID: ${idEspecialidad}`);
+          
           this.loadEspecialidades();
         },
         (error) => {

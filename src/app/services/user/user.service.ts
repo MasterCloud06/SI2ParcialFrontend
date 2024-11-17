@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserRegistrationDto } from '../../models/user-registration.model';
 import { UserUpdateDto } from '../../models/user-update.model';
 import { RoleAssignmentDto } from '../../models/role-assignment.model';
+import { environment } from '../../../environments/environment.prod'; // Asegúrate de que esta ruta sea correcta
 
 export interface User {
   id: number;
   username: string;
   email: string;
-  roles: string[];
+  roles: Array<{ id: number; name: string }>;
+  especialidadId?: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:8080/api/users/';  // Asegúrate de que esta URL es correcta
+  private baseUrl = `${environment.apiUrl}/users`;
 
   constructor(private http: HttpClient) { }
 
@@ -48,5 +50,10 @@ export class UserService {
   // Asignar un rol a un usuario
   assignRole(userId: number, roleDto: RoleAssignmentDto): Observable<any> {
     return this.http.post(`${this.baseUrl}/${userId}/assign-role`, roleDto);
+  }
+
+  // Obtener médicos por especialidad
+  getMedicosByEspecialidad(especialidadId: number): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/medicos/especialidad/${especialidadId}`);
   }
 }
