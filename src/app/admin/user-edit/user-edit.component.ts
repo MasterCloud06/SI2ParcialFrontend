@@ -54,7 +54,9 @@ export class UserEditComponent implements OnInit {
         id: this.userId,
         username: this.userForm.value.username,
         email: this.userForm.value.email,
-        roles: this.userForm.value.roles
+        roles: this.userForm.value.roles,
+        nombre: this.userForm.value.nombre,
+        apellido: this.userForm.value.apellido
       };
 
       this.userService.updateUser(this.userId, updatedUser).subscribe(

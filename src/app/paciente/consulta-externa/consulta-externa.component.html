@@ -11,7 +11,10 @@
       <tr *ngFor="let especialidad of especialidades">
         <td>{{ especialidad.nombre }}</td>
         <td class="button-cell">
-          <button mat-raised-button color="primary" class="seleccionar-button" (click)="verMedicos(especialidad.id)">Seleccionar</button>
+          <!-- Cambia `especialidad.id` a `especialidad.idEspecialidad` -->
+          <button mat-raised-button color="primary" class="seleccionar-button" (click)="verMedicos(especialidad.idEspecialidad)">
+            Seleccionar
+          </button>
         </td>
       </tr>
     </tbody>

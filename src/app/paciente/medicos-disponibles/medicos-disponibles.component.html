@@ -1,0 +1,26 @@
+<div class="container">
+  <h2 class="title">Médicos Disponibles</h2>
+  <div *ngIf="medicos.length > 0; else noMedicos">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre del Médico</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let medico of medicos">
+          <td>{{ medico.nombre }} {{ medico.apellido }}</td>
+          <td>
+            <button (click)="seleccionarMedico(medico)" class="btn btn-primary">
+              Seleccionar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noMedicos>
+    <p>No hay médicos disponibles para esta especialidad.</p>
+  </ng-template>
+</div>

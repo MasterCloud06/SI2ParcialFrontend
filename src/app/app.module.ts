@@ -49,9 +49,12 @@ import { EspecialidadCreateComponent } from './admin/especialidad-create/especia
 import { EspecialidadEditComponent } from './admin/especialidad-edit/especialidad-edit.component'; // Asegúrate de que está importado
 
 import { ConsultaExternaComponent } from './paciente/consulta-externa/consulta-externa.component';
+import { MedicosDisponiblesComponent } from './paciente/medicos-disponibles/medicos-disponibles.component';
 
 import { AuthInterceptor } from './interceptors/auth-interceptor.service';
 import { BitacoraComponent } from './admin/bitacora/bitacora.component';
+import { HorariosDisponiblesComponent } from './paciente/horarios-disponibles/horarios-disponibles.component';
+import { FichaAtencionComponent } from './paciente/ficha-atencion/ficha-atencion.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +77,9 @@ import { BitacoraComponent } from './admin/bitacora/bitacora.component';
     EspecialidadEditComponent,
     ConsultaExternaComponent,
     BitacoraComponent,
+    MedicosDisponiblesComponent,
+    HorariosDisponiblesComponent,
+    FichaAtencionComponent,
 
 
   ],

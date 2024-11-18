@@ -1,0 +1,8 @@
+<div class="medicos container">
+  <h2>Médicos</h2>
+  <ul>
+    <li *ngFor="let medico of medicos">
+      {{ medico.nombre }} {{ medico.apellido }} - {{ medico.especialidades[0].nombre }}
+    </li>
+  </ul>
+</div>

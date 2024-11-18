@@ -52,7 +52,7 @@ export class EspecialidadListComponent implements OnInit {
         () => {
           this.snackBar.open('Especialidad eliminada correctamente', 'Cerrar', { duration: 3000 });
           this.bitacoraService.registrarAccion(`Especialidad eliminada con ID: ${idEspecialidad}`);
-          
+
           this.loadEspecialidades();
         },
         (error) => {
@@ -62,4 +62,8 @@ export class EspecialidadListComponent implements OnInit {
       );
     }
   }
+   // Método para redirigir a la vista de médicos disponibles
+   redirectToMedicos(especialidadId: number) {
+    this.router.navigate([`/paciente/medicos-disponibles/${especialidadId}`]);
+}
 }

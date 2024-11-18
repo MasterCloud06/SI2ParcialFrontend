@@ -1,0 +1,33 @@
+<div class="container">
+  <h2 class="title">Listado Horarios</h2>
+  <!-- Asegúrate de que 'horarios' no sea null y tenga elementos -->
+  <div *ngIf="horarios && horarios.length > 0; else noHorarios">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Día</th>
+          <th>Turno</th>
+          <th>Modo Consulta</th>
+          <th>Horario Atención</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let horario of horarios">
+          <td>{{ horario.dia }}</td>
+          <td>{{ horario.turno }}</td>
+          <td>{{ horario.modoConsulta }}</td>
+          <td>{{ horario.horaInicio }} - {{ horario.horaFin }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="seleccionarHorario(horario.id)">
+              Seleccionar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noHorarios>
+    <p>No hay horarios disponibles para este médico.</p>
+  </ng-template>
+</div>

@@ -1,0 +1,16 @@
+<div class="container">
+  <h2 class="title">Ficha de Atención</h2>
+  <div *ngIf="ficha; else loading">
+    <p><strong>Fecha:</strong> {{ ficha.fecha }}</p>
+    <p><strong>Nombre del Paciente:</strong> {{ ficha.pacienteNombre }}</p>
+    <p><strong>Número de Ficha:</strong> {{ ficha.id }}</p>
+    <p><strong>Horario de Atención:</strong> {{ ficha.hora }}</p>
+    <p><strong>Médico:</strong> {{ ficha.medicoNombre }}</p>
+    <p><strong>Especialidad:</strong> {{ ficha.especialidadNombre }}</p>
+    <p><strong>Estado:</strong> {{ ficha.estado }}</p>
+    <button class="btn btn-primary" routerLink="/paciente/horarios-disponibles">Volver</button>
+  </div>
+  <ng-template #loading>
+    <p>Cargando datos de la ficha...</p>
+  </ng-template>
+</div>

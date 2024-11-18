@@ -12,13 +12,15 @@ export interface User {
   email: string;
   roles: Array<{ id: number; name: string }>;
   especialidadId?: number;
+  nombre: string; // Añade esta línea
+  apellido: string; // Añade esta línea
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = `${environment.apiUrl}/users`;
+  private baseUrl = `${environment.apiUrl}/users/`;
 
   constructor(private http: HttpClient) { }
 
@@ -54,6 +56,6 @@ export class UserService {
 
   // Obtener médicos por especialidad
   getMedicosByEspecialidad(especialidadId: number): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUrl}/medicos/especialidad/${especialidadId}`);
+    return this.http.get<User[]>(`${this.baseUrl}MEDICO/especialidades/${especialidadId}`);
   }
 }

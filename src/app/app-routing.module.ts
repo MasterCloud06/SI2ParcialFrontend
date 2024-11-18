@@ -25,6 +25,9 @@ import { MedicosDisponiblesComponent } from './paciente/medicos-disponibles/medi
 
 import { BitacoraComponent } from './admin/bitacora/bitacora.component';
 
+import { HorariosDisponiblesComponent } from './paciente/horarios-disponibles/horarios-disponibles.component';
+import { FichaAtencionComponent } from './paciente/ficha-atencion/ficha-atencion.component';
+
 
 const routes: Routes = [
   { path: 'inicio', component: InicioComponent },
@@ -99,6 +102,19 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['PACIENTE'] },
   },
+  {
+    path: 'paciente/horarios-disponibles/:medicoId',
+    component: HorariosDisponiblesComponent, // Asegúrate de crear e importar HorariosDisponiblesComponent
+    canActivate: [AuthGuard],
+    data: { roles: ['PACIENTE'] },
+  },
+  {
+    path: 'paciente/ficha-atencion/:id',
+    component: FichaAtencionComponent, // Asegúrate de crear e importar HorariosDisponiblesComponent
+    canActivate: [AuthGuard],
+    data: { roles: ['PACIENTE'] },
+  },
+
 
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
 
